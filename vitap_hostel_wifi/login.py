@@ -1,8 +1,8 @@
 import time
 import urllib3
 import requests
-from constants import URL
 from bs4 import BeautifulSoup
+from vitap_hostel_wifi.constants import URL
 
 # Suppressing the SSL Certificate verification warning
 urllib3.disable_warnings()
