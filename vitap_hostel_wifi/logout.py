@@ -1,7 +1,7 @@
 import time
 import urllib3
 import requests
-from constants import URL
+from vitap_hostel_wifi.constants import URL
 from bs4 import BeautifulSoup
 
 # Suppressing the SSL Certificate verification warning
@@ -46,9 +46,3 @@ def logout(username, password, producttype=0):
         return f"Error: {e}"
     except Exception as e:
         return f"An unexpected error occurred: {e}"
-
-# Example usage:
-if __name__ == "__main__":
-    username = input("Enter username: ")
-    password = input("Enter password: ")
-    print(logout(username, password))
