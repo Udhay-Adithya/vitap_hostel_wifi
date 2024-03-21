@@ -52,11 +52,11 @@ username = "your_username"
 password = "your_password"
 
 # Login
-login_result = my_package.login(username, password)
+login_result = vitap_hostel_wifi.login(username, password)
 print(login_result)
 
 # Logout
-logout_result = my_package.logout(username, password)
+logout_result = vitap_hostel_wifi.logout(username, password)
 print(logout_result)
 ```
 
