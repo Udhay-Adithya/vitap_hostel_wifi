@@ -1,7 +1,7 @@
 URL="https://hfw.vitap.ac.in:8090/httpclient.html"
-Login = 191
-Live=192
-Logout=193
-Web = 0
-Ios = 1
-Android = 2
+LOGIN = 191
+LIVE=192
+LOGOUT=193
+WEB = 0
+IOS = 1
+ANDROID = 2
