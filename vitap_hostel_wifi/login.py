@@ -36,7 +36,8 @@ def login(username, password, producttype=0):
 
         # Check the response and print appropriate message
         message = soup.find('message').text
-        if message == f'You are signed in as {username}':
+
+        if message == r'You are signed in as {username}':
             return f'You are signed in as {username}'
         else:
             return message
@@ -45,6 +46,3 @@ def login(username, password, producttype=0):
         return f"Error: {e}"
     except Exception as e:
         return f"An unexpected error occurred: {e}"
-
-
-
