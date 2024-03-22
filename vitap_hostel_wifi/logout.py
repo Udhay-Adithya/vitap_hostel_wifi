@@ -37,10 +37,10 @@ def logout(username, password, producttype=0):
 
         # Check the response and print appropriate message
         message = soup.find('message').text
-        if message == 'LOGINYou&#39;ve signed out':
+        if message == r'You&#39;ve signed out':
             return 'Successfully Signed Out'
         else:
-            return 'Signout failed. Check your username and password.'
+            return 'Signout failed. Incorrect username or password.'
 
     except requests.RequestException as e:
         return f"Error: {e}"
