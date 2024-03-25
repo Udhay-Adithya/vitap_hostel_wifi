@@ -52,11 +52,11 @@ username = "your_username"
 password = "your_password"
 
 # Login
-login_result = my_package.login(username, password)
+login_result = vitap_hostel_wifi.login(username, password)
 print(login_result)
 
 # Logout
-logout_result = my_package.logout(username, password)
+logout_result = vitap_hostel_wifi.logout(username, password)
 print(logout_result)
 ```
 
@@ -64,7 +64,7 @@ print(logout_result)
 ## Contributing
 Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
 
-- Special thanks to **[@TEJAS-SAI-PRASHAD-K]([https://github.com/username1](https://github.com/TEJAS-SAI-PRASHAD-K)https://github.com/TEJAS-SAI-PRASHAD-K)** for helping me out with the JavaScript part
+- Special thanks to **[@TEJAS-SAI-PRASHAD-K](https://github.com/TEJAS-SAI-PRASHAD-K)** for helping me out with the JavaScript part
 
 ## License
 This project is licensed under the MIT License. 
