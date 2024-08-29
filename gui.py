@@ -16,84 +16,109 @@ from src.constants import (
     activeColor,
 )
 
+# Initialize the icon variable globally
+icon = None
 
 # To solve blurry fonts on Windows
-from ctypes import windll
-
-windll.shcore.SetProcessDpiAwareness(1)
-
+try:
+    from ctypes import windll
+    windll.shcore.SetProcessDpiAwareness(1)
+except Exception:
+    pass
 
 def on_tray_login(icon, item):
-    username, password = load_credentials()
+    try:
+        username, password = load_credentials()
+        if not username or not password:
+            username = simpledialog.askstring("Input", "Enter Username :", parent=root)
+            password = simpledialog.askstring("Input", "Enter Password :", parent=root)
 
-    if not username or not password:
-        username = simpledialog.askstring("Input", "Enter Username :", parent=root)
-        password = simpledialog.askstring("Input", "Enter Password :", parent=root)
-
-    if username and password:
-        save_credentials(username, password)
-        result = login(username, password)
-        icon.notify(result)
-
+        if username and password:
+            save_credentials(username, password)
+            result = login(username, password)
+            icon.notify(result)
+    except Exception:
+        pass
 
 def on_tray_logout(icon, item):
-    username, password = load_credentials()
+    try:
+        username, password = load_credentials()
+        if not username or not password:
+            username = simpledialog.askstring("Input", "Enter Username :", parent=root)
+            password = simpledialog.askstring("Input", "Enter Password :", parent=root)
 
-    if not username or not password:
-        username = simpledialog.askstring("Input", "Enter Username :", parent=root)
-        password = simpledialog.askstring("Input", "Enter Password :", parent=root)
-
-    if username and password:
-        result = logout(username, password)
-        icon.notify(result)
-
+        if username and password:
+            result = logout(username, password)
+            icon.notify(result)
+    except Exception:
+        pass
 
 def on_tray_quit(icon, item):
-    icon.stop()
-    root.quit()
-
+    try:
+        icon.stop()
+        root.quit()
+    except Exception:
+        pass
 
 def setup_tray():
-    # Load the custom tray icon image
-    tray_icon = Image.open("favicon.ico")
+    global icon
+    try:
+        try:
+            tray_icon = Image.open("C:/vitap_hostel_wifi/favicon.ico")  # Use full path
+        except FileNotFoundError:
+            # Create a simple default icon if favicon.ico is not found
+            tray_icon = Image.new('RGB', (64, 64), (255, 255, 255))
+            d = ImageDraw.Draw(tray_icon)
+            d.text((10, 10), "Wi-Fi", fill=(0, 0, 0))
 
-    menu = Menu(
-        MenuItem("Open", on_show),
-        MenuItem("Login", on_tray_login),
-        MenuItem("Logout", on_tray_logout),
-        MenuItem("Exit", on_tray_quit),
-    )
+        menu = Menu(
+            MenuItem("Open", on_show),
+            MenuItem("Login", on_tray_login),
+            MenuItem("Logout", on_tray_logout),
+            MenuItem("Exit", on_tray_quit),
+        )
 
-    icon = Icon("VITAP Wi-Fi Tool", tray_icon, "VITAP Wi-Fi Tool", menu)
-    icon.run()
-
+        icon = Icon("VITAP Wi-Fi Tool", tray_icon, "VITAP Wi-Fi Tool", menu)
+        icon.run()
+    except Exception:
+        pass
 
 def on_show(icon, item):
-    icon.stop()  # Stop the tray icon
-    root.after(0, root.deiconify)  # Restore the Tkinter window
-
+    try:
+        icon.stop()  # Stop the tray icon
+        root.after(0, root.deiconify)  # Restore the Tkinter window
+    except Exception:
+        pass
 
 def minimize_to_tray():
-    root.withdraw()  # Hide the window
-    tray_thread = threading.Thread(target=setup_tray)
-    tray_thread.start()
-
+    global icon
+    try:
+        root.withdraw()  # Hide the window
+        if icon is None:
+            tray_thread = threading.Thread(target=setup_tray)
+            tray_thread.start()
+    except Exception:
+        pass
 
 def on_closing():
     minimize_to_tray()
 
-
 def display_wifi_status():
-    status = connect_to_available_networks()
-    wifi_status_label.config(text=status)
-
+    try:
+        status = connect_to_available_networks()
+        wifi_status_label.config(text=status)
+    except Exception:
+        pass
 
 # Create the main window
 root = tk.Tk()
 root.title("VIT-AP Hostel Wi-Fi Login")
 
-# Set a custom icon for the Tkinter window (use your .ico file)
-root.iconbitmap("c:/vitap_hostel_wifi/favicon.ico")
+try:
+    # Set a custom icon for the Tkinter window (use your .ico file)
+    root.iconbitmap("c:/vitap_hostel_wifi/favicon.ico")
+except Exception:
+    pass
 
 # Set window size
 root.geometry("1920x1080")
@@ -109,27 +134,30 @@ root.bind(
     "<Unmap>", lambda event: minimize_to_tray() if root.state() == "iconic" else None
 )
 
-
 def on_login():
-    username = username_entry.get()
-    password = password_entry.get()
+    try:
+        username = username_entry.get()
+        password = password_entry.get()
 
-    # Save the credentials
-    save_credentials(username, password)
+        # Save the credentials
+        save_credentials(username, password)
 
-    # Call the login function
-    result = login(username, password)
-    response_label.config(text=result)
-
+        # Call the login function
+        result = login(username, password)
+        response_label.config(text=result)
+    except Exception:
+        pass
 
 def on_logout():
-    username = username_entry.get()
-    password = password_entry.get()
+    try:
+        username = username_entry.get()
+        password = password_entry.get()
 
-    # Call the logout function
-    result = logout(username, password)
-    response_label.config(text=result)
-
+        # Call the logout function
+        result = logout(username, password)
+        response_label.config(text=result)
+    except Exception:
+        pass
 
 # Set custom fonts for labels and buttons
 label_font = font.Font(family="Verdana", size=12, weight="normal")
@@ -164,10 +192,10 @@ username_label = tk.Label(
 )
 username_label.grid(row=1, column=0, padx=8, pady=8, ipadx=4, ipady=4, sticky=tk.E)
 
-username_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor,font=input_font)
-username_entry.grid(row=1, column=1, padx=8, pady=8, sticky=tk.W)
+username_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor, font=input_font)
+username_entry.grid(row=1, column=1, padx=8, pady=8, ipadx=4, ipady=4)
 
-# Load the saved username if available
+# Insert saved username
 if saved_username:
     username_entry.insert(0, saved_username)
 
@@ -177,10 +205,10 @@ password_label = tk.Label(
 )
 password_label.grid(row=2, column=0, padx=8, pady=8, ipadx=4, ipady=4, sticky=tk.E)
 
-password_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor,font=input_font)
-password_entry.grid(row=2, column=1, padx=8, pady=8, sticky=tk.W)
+password_entry = tk.Entry(root, show="*", width=15, fg=secondaryTextColor, bg=containerColor, font=input_font)
+password_entry.grid(row=2, column=1, padx=8, pady=8, ipadx=4, ipady=4)
 
-# Load the saved password if available
+# Insert saved password
 if saved_password:
     password_entry.insert(0, saved_password)
 
@@ -189,55 +217,31 @@ login_button = tk.Button(
     root,
     text="Login",
     command=on_login,
+    width=10,
     font=button_font,
-    bg=containerColor,
-    fg=secondaryTextColor,
-    activebackground=activeColor,
-    activeforeground=secondaryTextColor,
-    highlightthickness=2,
-    highlightcolor=activeColor,
-    highlightbackground=bgColor,
-    border=0,
-    width=13,
-    height=2,
+    fg=bgColor,
+    bg=activeColor,
 )
-login_button.grid(row=3, column=0, padx=8, pady=8, ipadx=8, sticky=tk.E)
+login_button.grid(row=3, column=0, padx=8, pady=8)
 
 # Logout button
 logout_button = tk.Button(
     root,
     text="Logout",
     command=on_logout,
+    width=10,
     font=button_font,
-    bg=bgColor,
-    fg=containerColor,
-    activebackground=activeColor,
-    activeforeground=secondaryTextColor,
-    highlightthickness=1,
-    highlightcolor=activeColor,
-    highlightbackground=bgColor,
-    border=0,
-    width=13,
-    height=1,
+    fg=bgColor,
+    bg=activeColor,
 )
-logout_button.grid(row=3, column=1, padx=8, pady=8, ipadx=8, sticky=tk.W)
+logout_button.grid(row=3, column=1, padx=8, pady=8)
 
-# Label to show response
-response_label = tk.Label(root, text="", font=label_font, bg=bgColor, fg="#00FF40")
+# Response label
+response_label = tk.Label(root, text="", font=label_font, bg=bgColor, fg=primaryTextColor)
 response_label.grid(row=4, column=0, columnspan=2, padx=8, pady=8)
 
-# Label to show response
-empty_text_label = tk.Label(
-    root,
-    text=" thisissomeinvisibletextwhichyoucantsee",
-    font=label_font,
-    bg=bgColor,
-    fg=bgColor,
-)
-empty_text_label.grid(row=5, column=0, columnspan=2, padx=8, pady=8)
-
-# Display the Wi-Fi status when the window opens
+# Start displaying Wi-Fi status
 display_wifi_status()
 
-# Start the GUI loop
+# Run the main event loop
 root.mainloop()
