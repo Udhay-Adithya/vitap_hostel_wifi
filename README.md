@@ -64,6 +64,8 @@ print(logout_result)
 ## Contributing
 Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
 
+- Special thanks to **[@TEJAS-SAI-PRASHAD-K](https://github.com/TEJAS-SAI-PRASHAD-K)** for helping me out with the JavaScript part
+
 ## License
 This project is licensed under the MIT License. 
 
