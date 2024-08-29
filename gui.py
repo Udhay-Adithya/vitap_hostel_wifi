@@ -4,11 +4,11 @@ from tkinter import simpledialog
 from tkinter import font
 from pystray import Icon, MenuItem, Menu
 from PIL import Image, ImageDraw, ImageTk
-from vitap_hostel_wifi.login import login
-from vitap_hostel_wifi.logout import logout
-from vitap_hostel_wifi.auto_connect import connect_to_available_networks
-from vitap_hostel_wifi.credentials import save_credentials, load_credentials
-from vitap_hostel_wifi.constants import (
+from src.login import login
+from src.logout import logout
+from src.auto_connect import connect_to_available_networks
+from src.credentials import save_credentials, load_credentials
+from src.constants import (
     bgColor,
     primaryTextColor,
     secondaryTextColor,
