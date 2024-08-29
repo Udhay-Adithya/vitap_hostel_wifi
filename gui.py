@@ -54,7 +54,7 @@ def on_tray_quit(icon, item):
 
 
 def setup_tray():
-    # Load the custom tray icon image (e.g., 'tray_icon.ico')
+    # Load the custom tray icon image
     tray_icon = Image.open("favicon.ico")
 
     menu = Menu(
@@ -132,12 +132,13 @@ def on_logout():
 
 
 # Set custom fonts for labels and buttons
-label_font = font.Font(family="Verdana", size=10, weight="normal")
+label_font = font.Font(family="Verdana", size=12, weight="normal")
 button_font = font.Font(family="Arial", size=8, weight="bold")
+input_font = font.Font(family="Arial", size=12, weight="bold")
 
 # Center-align window on the screen
-window_width = 300
-window_height = 250
+window_width = 424
+window_height = 300
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 x_cordinate = int((screen_width / 2) - (window_width / 2))
@@ -161,9 +162,9 @@ wifi_status_label.grid(
 username_label = tk.Label(
     root, text="Username :", font=label_font, fg=primaryTextColor, bg=bgColor
 )
-username_label.grid(row=1, column=0, padx=8, pady=8, ipadx=4, ipady=4, sticky=tk.W)
+username_label.grid(row=1, column=0, padx=8, pady=8, ipadx=4, ipady=4, sticky=tk.E)
 
-username_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor)
+username_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor,font=input_font)
 username_entry.grid(row=1, column=1, padx=8, pady=8, sticky=tk.W)
 
 # Load the saved username if available
@@ -174,9 +175,9 @@ if saved_username:
 password_label = tk.Label(
     root, text="Password :", font=label_font, fg=primaryTextColor, bg=bgColor
 )
-password_label.grid(row=2, column=0, padx=8, pady=8, ipadx=4, ipady=4, sticky=tk.W)
+password_label.grid(row=2, column=0, padx=8, pady=8, ipadx=4, ipady=4, sticky=tk.E)
 
-password_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor)
+password_entry = tk.Entry(root, width=15, fg=secondaryTextColor, bg=containerColor,font=input_font)
 password_entry.grid(row=2, column=1, padx=8, pady=8, sticky=tk.W)
 
 # Load the saved password if available
@@ -228,7 +229,7 @@ response_label.grid(row=4, column=0, columnspan=2, padx=8, pady=8)
 # Label to show response
 empty_text_label = tk.Label(
     root,
-    text=" thisissomeinvisibletextyouknow ",
+    text=" thisissomeinvisibletextwhichyoucantsee",
     font=label_font,
     bg=bgColor,
     fg=bgColor,

@@ -42,4 +42,4 @@ def connect_to_available_networks():
         except subprocess.CalledProcessError as e:
             return f"Error checking network availability: {e}"
 
-    return "No specified networks are available"
+    return "Please turn On your Wi-Fi"

@@ -21,6 +21,10 @@ def logout(username, password, producttype=0):
         str: Message indicating logout status.
     """
     try:
+        if len(username) < 6:
+            return "Username too short"
+        if len(password) < 6:
+            return "Password too short"
         data = {
             "mode": 193,
             "username": username,
@@ -45,6 +49,9 @@ def logout(username, password, producttype=0):
             return "Signout failed. Please Sign-in first to Sign out."
 
     except requests.RequestException as e:
+        error_str = str(e)
+        if "HTTPSConnectionPool" in error_str:
+            return "Login Failed\nMake sure you are connected\nto hostel Wi-Fi"
         return f"Error: {e}"
     except Exception as e:
         return f"An unexpected error occurred: {e}"
